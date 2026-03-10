@@ -1,0 +1,921 @@
+/* 脑机接口谋杀案 - 样式文件 */
+/* ================================================== */
+
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* 颜色主题 */
+    --primary-bg: #0d1117;
+    --secondary-bg: #161b22;
+    --tertiary-bg: #21262d;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --accent-primary: #58a6ff;
+    --accent-secondary: #f85149;
+    --accent-success: #238636;
+    --accent-warning: #d29922;
+    --accent-danger: #da3633;
+
+    /* 字体 */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+
+    /* 间距 */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+
+    /* 圆角 */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+
+    /* 阴影 */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 游戏容器 */
+#game-container {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 屏幕切换 */
+.screen {
+    display: none;
+    min-height: 100vh;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* 按钮样式 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #79c0ff;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--tertiary-bg);
+}
+
+.btn-danger {
+    background-color: var(--accent-danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #f85149;
+}
+
+.btn-success {
+    background-color: var(--accent-success);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #2ea043;
+}
+
+/* 加载界面 */
+#loading-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+}
+
+.loading-content {
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--spacing-lg);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-content h2 {
+    font-size: 24px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.loading-content p {
+    color: var(--text-secondary);
+}
+
+/* 开场动画界面 */
+#intro-screen {
+    background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+    padding: var(--spacing-xl);
+}
+
+.intro-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+}
+
+#intro-video {
+    width: 100%;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.intro-text {
+    text-align: center;
+}
+
+.intro-text h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 4px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: var(--spacing-xl);
+    letter-spacing: 2px;
+}
+
+.case-background {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+    text-align: left;
+}
+
+.case-background h3 {
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.case-background p {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.7;
+}
+
+/* 游戏主界面 */
+#game-screen {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 侧边栏 */
+#sidebar {
+    width: 300px;
+    background-color: var(--secondary-bg);
+    border-right: 1px solid var(--border-color);
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+}
+
+.sidebar-header h3 {
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-lg);
+    font-size: 18px;
+}
+
+.sidebar-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.sidebar-section h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.timer, .score {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--accent-primary);
+}
+
+#time-display {
+    color: var(--accent-secondary);
+}
+
+#score-display {
+    color: var(--accent-success);
+}
+
+#clues-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.clue-item {
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    font-size: 14px;
+}
+
+.clue-item.unlocked {
+    border-color: var(--accent-warning);
+}
+
+.clue-item.verified {
+    border-color: var(--accent-success);
+    background-color: rgba(35, 134, 54, 0.1);
+}
+
+.no-clues {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+#achievements-list {
+    display: grid;
+    gap: var(--spacing-sm);
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    opacity: 0.5;
+}
+
+.achievement-item.unlocked {
+    opacity: 1;
+    border-color: var(--accent-success);
+    background-color: rgba(35, 134, 54, 0.1);
+}
+
+.achievement-item .achievement-icon {
+    font-size: 20px;
+}
+
+.achievement-item .achievement-info h5 {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.achievement-item .achievement-info p {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 主内容区 */
+#main-content {
+    flex: 1;
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+}
+
+/* 教程覆盖层 */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.tutorial-content {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    max-width: 500px;
+    text-align: center;
+}
+
+.tutorial-step {
+    display: none;
+}
+
+.tutorial-step.active {
+    display: block;
+}
+
+.tutorial-step h3 {
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.tutorial-step p {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+.tutorial-next-btn {
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 游戏状态面板 */
+#game-status {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.investigation-progress h4,
+.character-selection h4 {
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--tertiary-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-sm);
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--accent-primary);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+#progress-text {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+#character-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.character-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.character-btn:hover {
+    border-color: var(--accent-primary);
+    background-color: rgba(88, 166, 255, 0.1);
+}
+
+.character-btn.selected {
+    border-color: var(--accent-primary);
+    background-color: rgba(88, 166, 255, 0.1);
+}
+
+.character-btn .character-icon {
+    font-size: 24px;
+}
+
+.character-btn .character-info h5 {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.character-btn .character-info p {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 聊天区域 */
+#chat-area {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chat-title {
+    color: var(--accent-primary);
+    font-size: 18px;
+}
+
+.character-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+}
+
+#character-icon {
+    font-size: 20px;
+}
+
+#character-name {
+    font-weight: bold;
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.message {
+    display: flex;
+    gap: var(--spacing-sm);
+    max-width: 80%;
+}
+
+.message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message .message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.message.user .message-avatar {
+    background-color: var(--accent-primary);
+}
+
+.message.npc .message-avatar {
+    background-color: var(--accent-secondary);
+}
+
+.message .message-content {
+    background-color: var(--tertiary-bg);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    flex: 1;
+}
+
+.message.user .message-content {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.message .message-text {
+    line-height: 1.5;
+}
+
+.message .message-time {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+.chat-input-area {
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-lg);
+}
+
+.suggested-questions h5 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+#question-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.question-suggestion {
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.question-suggestion:hover {
+    border-color: var(--accent-primary);
+    background-color: rgba(88, 166, 255, 0.1);
+}
+
+.chat-input {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+#message-input {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+#message-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+/* 故事推断页面 */
+#story-inference-screen {
+    background-color: var(--primary-bg);
+    padding: var(--spacing-xl);
+}
+
+.story-inference-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.story-inference-content h2 {
+    color: var(--accent-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.inference-description {
+    background-color: rgba(88, 166, 255, 0.1);
+    border: 1px solid var(--accent-primary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.clue-selection h3 {
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+#inference-clues {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.inference-clue-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+}
+
+.inference-clue-item input[type="checkbox"] {
+    margin-right: var(--spacing-sm);
+}
+
+.inference-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.input-group textarea {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    resize: vertical;
+}
+
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.inference-actions {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+#generate-story-btn {
+    font-size: 18px;
+    padding: var(--spacing-md) var(--spacing-xl);
+}
+
+#story-result {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    min-height: 200px;
+    margin-bottom: var(--spacing-xl);
+}
+
+.inference-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+}
+
+/* 指认凶手页面 */
+#accuse-screen {
+    background-color: var(--primary-bg);
+    padding: var(--spacing-xl);
+}
+
+.accuse-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.accuse-content h2 {
+    color: var(--accent-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.accuse-form {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+}
+
+.accuse-step {
+    margin-bottom: var(--spacing-xl);
+}
+
+.accuse-step h3 {
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+#suspect-selection,
+#evidence-selection {
+    display: grid;
+    gap: var(--spacing-sm);
+}
+
+.suspect-option,
+.evidence-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.suspect-option:hover,
+.evidence-option:hover {
+    border-color: var(--accent-primary);
+    background-color: rgba(88, 166, 255, 0.1);
+}
+
+.suspect-option.selected,
+.evidence-option.selected {
+    border-color: var(--accent-primary);
+    background-color: rgba(88, 166, 255, 0.1);
+}
+
+.suspect-option input[type="radio"],
+.evidence-option input[type="checkbox"] {
+    margin-right: var(--spacing-sm);
+}
+
+#final-statement {
+    width: 100%;
+    background-color: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    resize: vertical;
+}
+
+#final-statement:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.accuse-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+/* 结局页面 */
+#ending-screen {
+    background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: var(--spacing-xl);
+}
+
+.ending-content {
+    max-width: 600px;
+    text-align: center;
+}
+
+#ending-result {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.ending-success h2 {
+    color: var(--accent-success);
+}
+
+.ending-failure h2 {
+    color: var(--accent-danger);
+}
+
+.ending-stats {
+    margin: var(--spacing-lg) 0;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.ending-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    #game-screen {
+        flex-direction: column;
+    }
+
+    #sidebar {
+        width: 100%;
+        order: 2;
+    }
+
+    #main-content {
+        order: 1;
+    }
+
+    .intro-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .inference-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .inference-footer {
+        flex-direction: column;
+    }
+
+    .accuse-actions {
+        flex-direction: column;
+    }
+
+    .ending-actions {
+        flex-direction: column;
+    }
+}

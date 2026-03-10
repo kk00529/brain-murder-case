@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脑机接口谋杀案 - Brain-Computer Interface Murder Case</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="favicon.ico">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 引入音频播放库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+</head>
+<body>
+    <!-- 游戏容器 -->
+    <div id="game-container">
+        <!-- 加载界面 -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h2>正在加载游戏...</h2>
+                <p>初始化脑机接口系统</p>
+            </div>
+        </div>
+
+        <!-- 开场动画 -->
+        <div id="intro-screen" class="screen">
+            <div class="intro-content">
+                <video id="intro-video" controls>
+                    <source src="assets/videos/intro.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+                <div class="intro-text">
+                    <h1>脑机接口谋杀案</h1>
+                    <p class="subtitle">BRAIN-COMPUTER INTERFACE MURDER CASE</p>
+                    <div class="case-background">
+                        <h3>📖 案件背景</h3>
+                        <p>窗外暴风雪肆虐，脑机接口研究所与外界通讯彻底中断。今晚20:30，所长李博士死于主控室。死因：佩戴脑机头盔测试时，备用电源切入导致电压过载，大脑被高温灼烧身亡。</p>
+                        <h3>🎯 你的任务</h3>
+                        <p>作为资深侦探，你需要通过与5名嫌疑人对话，收集线索，分析证据，在30分钟内找出真凶！</p>
+                    </div>
+                    <button id="start-game-btn" class="btn-primary">开始游戏</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏主界面 -->
+        <div id="game-screen" class="screen">
+            <!-- 侧边栏 -->
+            <div id="sidebar">
+                <div class="sidebar-header">
+                    <h3>🎮 游戏面板</h3>
+                </div>
+
+                <!-- 倒计时 -->
+                <div class="sidebar-section">
+                    <div class="timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="time-display">30:00</span>
+                    </div>
+                </div>
+
+                <!-- 分数 -->
+                <div class="sidebar-section">
+                    <div class="score">
+                        <i class="fas fa-star"></i>
+                        <span id="score-display">0</span>
+                    </div>
+                </div>
+
+                <!-- 线索收集 -->
+                <div class="sidebar-section">
+                    <h4>📋 线索收集</h4>
+                    <div id="clues-list">
+                        <p class="no-clues">暂无线索</p>
+                    </div>
+                </div>
+
+                <!-- 成就系统 -->
+                <div class="sidebar-section">
+                    <h4>🏆 成就</h4>
+                    <div id="achievements-list">
+                        <!-- 成就将动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="sidebar-section">
+                    <button id="story-inference-btn" class="btn-secondary">
+                        <i class="fas fa-book"></i> 故事推断
+                    </button>
+                    <button id="accuse-btn" class="btn-danger">
+                        <i class="fas fa-gavel"></i> 指认凶手
+                    </button>
+                </div>
+            </div>
+
+            <!-- 主内容区 -->
+            <div id="main-content">
+                <!-- 教程引导 -->
+                <div id="tutorial-overlay" class="tutorial-overlay">
+                    <div class="tutorial-content">
+                        <div id="tutorial-step-0" class="tutorial-step active">
+                            <h3>欢迎来到脑机接口谋杀案！</h3>
+                            <p>你将扮演一名侦探，在30分钟内找出杀害李博士的真凶。</p>
+                            <button class="tutorial-next-btn">下一步</button>
+                        </div>
+                        <div id="tutorial-step-1" class="tutorial-step">
+                            <h3>选择嫌疑人进行审讯</h3>
+                            <p>点击下方的人物按钮开始与他们对话，收集线索。</p>
+                            <button class="tutorial-next-btn">下一步</button>
+                        </div>
+                        <div id="tutorial-step-2" class="tutorial-step">
+                            <h3>发送消息并分析回复</h3>
+                            <p>向嫌疑人提问，注意他们的回复中可能包含重要线索。</p>
+                            <button class="tutorial-next-btn">开始游戏</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 游戏状态面板 -->
+                <div id="game-status">
+                    <div class="investigation-progress">
+                        <h4>🔍 调查进度</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <p id="progress-text">已审讯 0/5 名嫌疑人</p>
+                    </div>
+
+                    <div class="character-selection">
+                        <h4>👥 选择审讯对象</h4>
+                        <div id="character-buttons">
+                            <!-- 角色按钮将动态生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 聊天区域 -->
+                <div id="chat-area">
+                    <div class="chat-header">
+                        <h4 id="chat-title">选择嫌疑人开始审讯</h4>
+                        <div class="character-info">
+                            <span id="character-icon">👤</span>
+                            <span id="character-name">未选择</span>
+                            <span id="character-role">未选择</span>
+                        </div>
+                    </div>
+
+                    <div id="chat-messages" class="chat-messages">
+                        <!-- 聊天消息将动态生成 -->
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="suggested-questions">
+                            <h5>💡 建议问题</h5>
+                            <div id="question-suggestions">
+                                <!-- 建议问题将动态生成 -->
+                            </div>
+                        </div>
+
+                        <div class="chat-input">
+                            <input type="text" id="message-input" placeholder="输入你的问题...">
+                            <button id="send-btn" class="btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 故事推断页面 -->
+        <div id="story-inference-screen" class="screen">
+            <div class="story-inference-content">
+                <h2>✍️ 故事推断</h2>
+                <p class="inference-description">
+                    💡 <strong>推理引擎说明</strong>：AI会根据你选择的线索进行推理。如果信息不足以确定真凶，系统会提示缺失的关键证据。
+                </p>
+
+                <div class="clue-selection">
+                    <h3>📋 线索串联</h3>
+                    <p><strong id="clue-count">已收集 0 条线索</strong> • 选择用于推断的线索：</p>
+                    <div id="inference-clues">
+                        <!-- 线索选择框将动态生成 -->
+                    </div>
+                </div>
+
+                <div class="inference-inputs">
+                    <div class="input-group">
+                        <label for="modus-operandi">作案手法分析（可选）</label>
+                        <textarea id="modus-operandi" placeholder="根据线索分析凶手的作案方式..." rows="3"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="motive">作案动机分析（可选）</label>
+                        <textarea id="motive" placeholder="根据线索分析凶手的作案动机..." rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="inference-actions">
+                    <button id="generate-story-btn" class="btn-primary">
+                        🤔 生成推理故事
+                    </button>
+                </div>
+
+                <div id="story-result" class="story-result">
+                    <!-- 生成的故事将显示在这里 -->
+                </div>
+
+                <div class="inference-footer">
+                    <button id="back-to-game-btn" class="btn-secondary">← 返回游戏</button>
+                    <button id="accuse-from-story-btn" class="btn-danger">🎯 去指认凶手</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 指认凶手页面 -->
+        <div id="accuse-screen" class="screen">
+            <div class="accuse-content">
+                <h2>🎯 指认凶手</h2>
+                <div class="accuse-form">
+                    <div class="accuse-step">
+                        <h3>第一步：选择嫌疑人</h3>
+                        <div id="suspect-selection">
+                            <!-- 嫌疑人选择将动态生成 -->
+                        </div>
+                    </div>
+
+                    <div class="accuse-step">
+                        <h3>第二步：选择证据</h3>
+                        <div id="evidence-selection">
+                            <!-- 证据选择将动态生成 -->
+                        </div>
+                    </div>
+
+                    <div class="accuse-step">
+                        <h3>第三步：最终陈述</h3>
+                        <textarea id="final-statement" placeholder="请详细说明你的推理过程和证据链..." rows="5"></textarea>
+                    </div>
+
+                    <div class="accuse-actions">
+                        <button id="submit-accusation-btn" class="btn-danger">提交指认</button>
+                        <button id="back-from-accuse-btn" class="btn-secondary">返回游戏</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结局页面 -->
+        <div id="ending-screen" class="screen">
+            <div class="ending-content">
+                <div id="ending-result">
+                    <!-- 结局内容将动态生成 -->
+                </div>
+                <div class="ending-actions">
+                    <button id="play-again-btn" class="btn-primary">再玩一次</button>
+                    <button id="share-btn" class="btn-secondary">
+                        <i class="fas fa-share"></i> 分享成绩
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 音频元素 -->
+    <audio id="background-music" loop>
+        <source src="assets/audio/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- JavaScript 文件 -->
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/game-state.js"></script>
+    <script src="js/api-client.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/game-logic.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
